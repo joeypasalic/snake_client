@@ -1,32 +1,11 @@
 const { connect } = require('./client');
+const { setupInput } = require('./input');
+const connection = connect();
 console.log("Connecting ...");
 
-const connection = connect();
+setupInput;
 
-const setupInput = function() {
-
-  const stdin = process.stdin;
-  stdin.setRawMode(true);
-  stdin.setEncoding("utf8");
-  stdin.resume();
-
-
-  const handleUserInput = function(key) {
-
-    if (key === '\u0003') {
-      process.exit();
-    }
-
-  };
-
-  stdin.on("data", handleUserInput);
-  return stdin;
-
-};
-
-setupInput();
-
-
+//had to add this code because i wasn't being kicked off properly. prevents softlocking
 connection.on('close', () => {
   process.exit(1);
 });
